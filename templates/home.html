@@ -1,0 +1,151 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopee Calculator</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <main class="app-screen">
+
+        <nav class="topbar">
+            <div class="brand">TRINH CALC</div>
+            <a href="/" class="nav-link">Home</a>
+        </nav>
+
+        <section class="dashboard-grid">
+
+            <!-- LEFT: FORM + INPUT CONFIRMATION -->
+            <section class="form-panel">
+                <div class="panel-header">
+                    <p>01</p>
+                    <h2>Shopee Calculator</h2>
+                </div>
+
+                <form method="post" class="calc-form">
+                    {% csrf_token %}
+
+                    <label for="cost">Chi phí</label>
+                    <input
+                        type="text"
+                        id="cost"
+                        name="cost"
+                        class="money-input"
+                        inputmode="numeric"
+                        value="{{ cost_input }}"
+                        placeholder="100,000"
+                        required
+                    >
+
+                    <label for="desired_profit">Lợi nhuận mong muốn</label>
+                    <input
+                        type="text"
+                        id="desired_profit"
+                        name="desired_profit"
+                        class="money-input"
+                        inputmode="numeric"
+                        value="{{ desired_profit_input }}"
+                        placeholder="50,000"
+                        required
+                    >
+
+                    <button type="submit">Tính giá bán</button>
+                </form>
+
+                <div class="input-confirm">
+                    <h3>Thông tin đầu vào</h3>
+
+                    {% if result %}
+                        <div class="mini-row">
+                            <span>Chi phí</span>
+                            <strong>{{ result.cost|floatformat:0|intcomma }}đ</strong>
+                        </div>
+
+                        <div class="mini-row">
+                            <span>Lợi nhuận mong muốn</span>
+                            <strong>{{ result.desired_profit|floatformat:0|intcomma }}đ</strong>
+                        </div>
+                    {% else %}
+                        <p class="empty-text">Thông tin đầu vào sẽ hiện ở đây sau khi tính.</p>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- MIDDLE: TAX HKD -->
+            <section class="result-panel">
+                <div class="panel-header">
+                    <p>02</p>
+                    <h2>Thuế HKD Red Bean</h2>
+                </div>
+
+                {% if result %}
+                    <div class="big-number">
+                        {{ result.tax|floatformat:0|intcomma }}đ
+                    </div>
+
+                    <div class="mini-row">
+                        <span>Thuế TNCN</span>
+                        <strong>{{ result.tax|floatformat:0|intcomma }}đ</strong>
+                    </div>
+                {% else %}
+                    <p class="empty-text">Thuế HKD sẽ hiện ở đây sau khi tính.</p>
+                {% endif %}
+            </section>
+
+            <!-- RIGHT: SHOPEE FEE -->
+            <section class="result-panel">
+                <div class="panel-header">
+                    <p>03</p>
+                    <h2>Phí Shopee</h2>
+                </div>
+
+                {% if result %}
+                    <div class="big-number">
+                        {{ result.shopee_fee|floatformat:0|intcomma }}đ
+                    </div>
+
+                    <div class="fee-breakdown compact">
+                        {% for fee in result.fee_breakdown %}
+                            <div class="fee-row">
+                                <div>
+                                    <strong>{{ fee.description }}</strong>
+
+                                    {% if fee.rate_percent %}
+                                        <p>{{ fee.rate_percent|floatformat:1 }}%</p>
+                                    {% else %}
+                                        <p>Phí cố định</p>
+                                    {% endif %}
+                                </div>
+
+                                <span>{{ fee.amount|floatformat:0|intcomma }}đ</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-text">Chi tiết phí Shopee sẽ hiện ở đây sau khi tính.</p>
+                {% endif %}
+            </section>
+
+        </section>
+
+        <!-- BOTTOM: FINAL PRICE -->
+        <section class="final-price-bar">
+            <span>04 · Giá bán đề xuất</span>
+
+            {% if result %}
+                <strong>{{ result.selling_price|floatformat:0|intcomma }}đ</strong>
+            {% else %}
+                <strong>—</strong>
+            {% endif %}
+        </section>
+
+    </main>
+
+    <script src="{% static 'js/format-money.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* Full screen app layout */
+
+.app-screen {
+    height: 100vh;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background:
+        radial-gradient(circle at top right, rgba(229, 9, 20, 0.28), transparent 32%),
+        linear-gradient(to bottom, #080808, #000000);
+}
+
+/* Top navigation */
+
+.topbar {
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.brand {
+    color: #e50914;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.nav-link:hover {
+    opacity: 1;
+}
+
+/* Main dashboard */
+
+.dashboard-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 330px 1fr 1.35fr;
+    gap: 18px;
+}
+
+/* Panels */
+
+.form-panel,
+.result-panel {
+    min-height: 0;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.form-panel {
+    background: rgba(229, 9, 20, 0.12);
+    border: 1px solid rgba(229, 9, 20, 0.32);
+}
+
+.result-panel {
+    background: rgba(20, 20, 20, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+/* Panel titles */
+
+.panel-header {
+    margin-bottom: 22px;
+}
+
+.panel-header p {
+    margin: 0 0 6px;
+    color: #e50914;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.15;
+}
+
+/* Form */
+
+.calc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calc-form label {
+    color: #d2d2d2;
+    font-size: 14px;
+}
+
+.calc-form input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: #0c0c0c;
+    color: #ffffff;
+    font-size: 18px;
+    outline: none;
+}
+
+.calc-form input::placeholder {
+    color: #777777;
+}
+
+.calc-form input:focus {
+    border-color: #e50914;
+}
+
+.calc-form button {
+    margin-top: 8px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #e50914;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.calc-form button:hover {
+    background: #f6121d;
+}
+
+/* Input confirmation */
+
+.input-confirm {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.input-confirm h3 {
+    margin: 0 0 14px;
+    font-size: 18px;
+}
+
+/* Shared rows */
+
+.mini-row,
+.fee-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mini-row span,
+.fee-row p {
+    color: #a9a9a9;
+}
+
+.mini-row strong,
+.fee-row span {
+    color: #ffffff;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+/* Tax / fee result */
+
+.big-number {
+    margin-bottom: 22px;
+    color: #46d369;
+    font-size: clamp(34px, 4vw, 54px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+}
+
+.empty-text {
+    margin: 0;
+    color: #9d9d9d;
+    line-height: 1.5;
+}
+
+/* Shopee fee breakdown */
+
+.fee-breakdown.compact {
+    display: grid;
+    gap: 2px;
+}
+
+.fee-row strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.25;
+}
+
+.fee-row p {
+    margin: 4px 0 0;
+    font-size: 12px;
+}
+
+.fee-row span {
+    font-size: 14px;
+}
+
+/* Final selling price */
+
+.final-price-bar {
+    min-height: 88px;
+    padding: 18px 26px;
+    border-radius: 20px;
+    background:
+        linear-gradient(135deg, rgba(229, 9, 20, 0.28), rgba(20, 20, 20, 0.98));
+    border: 1px solid rgba(229, 9, 20, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.final-price-bar span {
+    color: #d7d7d7;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.final-price-bar strong {
+    color: #46d369;
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 950;
+    letter-spacing: -2px;
+}
+
+/* Smaller screens */
+
+@media (max-width: 1000px) {
+    body {
+        overflow: auto;
+    }
+
+    .app-screen {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .final-price-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 560px) {
+    .app-screen {
+        padding: 16px;
+    }
+
+    .form-panel,
+    .result-panel {
+        padding: 20px;
+    }
+
+    .mini-row,
+    .fee-row {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .final-price-bar strong {
+        font-size: 42px;
+    }
+}
