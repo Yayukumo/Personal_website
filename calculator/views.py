@@ -24,7 +24,7 @@ def calculator_home(request):
 
         result = calculate_selling_price(cost, desired_profit)
 
-    return render(request, "home.html", {
+    return render(request, "calculator.html", {
         "result": result,
         "cost_input": cost_input,
         "desired_profit_input": desired_profit_input,

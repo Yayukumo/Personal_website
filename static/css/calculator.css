@@ -11,8 +11,8 @@ body {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #050505;
-    color: #ffffff;
+    background: #fff8ec;
+    color: #26331f;
     overflow: hidden;
 }
 
@@ -25,8 +25,8 @@ body {
     flex-direction: column;
     gap: 18px;
     background:
-        radial-gradient(circle at top right, rgba(229, 9, 20, 0.28), transparent 32%),
-        linear-gradient(to bottom, #080808, #000000);
+        radial-gradient(circle at top right, rgba(153, 173, 122, 0.36), transparent 32%),
+        linear-gradient(to bottom, #fff8ec, #dcccac);
 }
 
 /* Top navigation */
@@ -40,17 +40,17 @@ body {
 }
 
 .brand {
-    color: #e50914;
+    color: #546b41;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 1px;
 }
 
 .nav-link {
-    color: #ffffff;
+    color: #546b41;
     text-decoration: none;
     font-size: 14px;
-    opacity: 0.8;
+    opacity: 0.75;
 }
 
 .nav-link:hover {
@@ -74,17 +74,21 @@ body {
     min-height: 0;
     border-radius: 20px;
     padding: 24px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 24px 80px rgba(84, 107, 65, 0.16);
 }
+
+/* Form panel should feel different */
 
 .form-panel {
-    background: rgba(229, 9, 20, 0.12);
-    border: 1px solid rgba(229, 9, 20, 0.32);
+    background: rgba(153, 173, 122, 0.22);
+    border: 1px solid rgba(84, 107, 65, 0.26);
 }
 
+/* Tax and Shopee fee panels look the same */
+
 .result-panel {
-    background: rgba(20, 20, 20, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 248, 236, 0.88);
+    border: 1px solid rgba(84, 107, 65, 0.16);
 }
 
 /* Panel titles */
@@ -95,7 +99,7 @@ body {
 
 .panel-header p {
     margin: 0 0 6px;
-    color: #e50914;
+    color: #546b41;
     font-size: 13px;
     font-weight: 900;
     letter-spacing: 2px;
@@ -105,6 +109,7 @@ body {
     margin: 0;
     font-size: 24px;
     line-height: 1.15;
+    color: #26331f;
 }
 
 /* Form */
@@ -116,7 +121,7 @@ body {
 }
 
 .calc-form label {
-    color: #d2d2d2;
+    color: #546b41;
     font-size: 14px;
 }
 
@@ -124,19 +129,20 @@ body {
     width: 100%;
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: #0c0c0c;
-    color: #ffffff;
+    border: 1px solid rgba(84, 107, 65, 0.22);
+    background: #fff8ec;
+    color: #26331f;
     font-size: 18px;
     outline: none;
 }
 
 .calc-form input::placeholder {
-    color: #777777;
+    color: #9b927d;
 }
 
 .calc-form input:focus {
-    border-color: #e50914;
+    border-color: #546b41;
+    box-shadow: 0 0 0 3px rgba(153, 173, 122, 0.28);
 }
 
 .calc-form button {
@@ -144,15 +150,15 @@ body {
     padding: 15px;
     border: none;
     border-radius: 10px;
-    background: #e50914;
-    color: #ffffff;
+    background: #546b41;
+    color: #fff8ec;
     font-size: 16px;
     font-weight: 900;
     cursor: pointer;
 }
 
 .calc-form button:hover {
-    background: #f6121d;
+    background: #445835;
 }
 
 /* Input confirmation */
@@ -160,12 +166,13 @@ body {
 .input-confirm {
     margin-top: 28px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(84, 107, 65, 0.18);
 }
 
 .input-confirm h3 {
     margin: 0 0 14px;
     font-size: 18px;
+    color: #26331f;
 }
 
 /* Shared rows */
@@ -177,17 +184,17 @@ body {
     align-items: flex-start;
     gap: 18px;
     padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(84, 107, 65, 0.14);
 }
 
 .mini-row span,
 .fee-row p {
-    color: #a9a9a9;
+    color: #6d725d;
 }
 
 .mini-row strong,
 .fee-row span {
-    color: #ffffff;
+    color: #26331f;
     font-weight: 850;
     white-space: nowrap;
 }
@@ -196,7 +203,7 @@ body {
 
 .big-number {
     margin-bottom: 22px;
-    color: #46d369;
+    color: #546b41;
     font-size: clamp(34px, 4vw, 54px);
     font-weight: 900;
     letter-spacing: -1.5px;
@@ -204,7 +211,7 @@ body {
 
 .empty-text {
     margin: 0;
-    color: #9d9d9d;
+    color: #6d725d;
     line-height: 1.5;
 }
 
@@ -219,6 +226,7 @@ body {
     display: block;
     font-size: 14px;
     line-height: 1.25;
+    color: #26331f;
 }
 
 .fee-row p {
@@ -237,22 +245,23 @@ body {
     padding: 18px 26px;
     border-radius: 20px;
     background:
-        linear-gradient(135deg, rgba(229, 9, 20, 0.28), rgba(20, 20, 20, 0.98));
-    border: 1px solid rgba(229, 9, 20, 0.3);
+        linear-gradient(135deg, rgba(153, 173, 122, 0.38), rgba(255, 248, 236, 0.98));
+    border: 1px solid rgba(84, 107, 65, 0.28);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    box-shadow: 0 24px 80px rgba(84, 107, 65, 0.16);
 }
 
 .final-price-bar span {
-    color: #d7d7d7;
+    color: #546b41;
     font-size: 18px;
     font-weight: 700;
 }
 
 .final-price-bar strong {
-    color: #46d369;
+    color: #546b41;
     font-size: clamp(38px, 5vw, 68px);
     font-weight: 950;
     letter-spacing: -2px;
