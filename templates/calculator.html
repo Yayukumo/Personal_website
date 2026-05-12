@@ -80,24 +80,37 @@
             <section class="result-panel">
                 <div class="panel-header">
                     <p>02</p>
-                    <h2>Thuế HKD Red Bean</h2>
+                    <h2>Chi phí HKD Red Bean</h2>
                 </div>
 
                 {% if result %}
                     <div class="big-number">
-                        {{ result.tax|floatformat:0|intcomma }}đ
+                        {{ result.total_hkd_cost|floatformat:0|intcomma }}đ
                     </div>
 
                     <div class="mini-row">
                         <span>Thuế TNCN</span>
                         <strong>{{ result.tax|floatformat:0|intcomma }}đ</strong>
                     </div>
-                    <div class="mini-row">
-                        <span>VAT của HKD</span>
-                        <strong>{{ result.vat_redbean|floatformat:0|intcomma }}đ</strong>
+                    <div class="fee-breakdown compact">
+                        {% for fee in result.hkd_fee_breakdown %}
+                            <div class="fee-row">
+                                <div>
+                                    <strong>{{ fee.description }}</strong>
+
+                                    {% if fee.rate_percent %}
+                                        <p>{{ fee.rate_percent|floatformat:1 }}%</p>
+                                    {% else %}
+                                        <p>Phí cố định</p>
+                                    {% endif %}
+                                </div>
+
+                                <span>{{ fee.amount|floatformat:0|intcomma }}đ</span>
+                            </div>
+                        {% endfor %}
                     </div>
                 {% else %}
-                    <p class="empty-text">Thuế HKD sẽ hiện ở đây sau khi tính.</p>
+                    <p class="empty-text">Chi phí HKD sẽ hiện ở đây sau khi tính.</p>
                 {% endif %}
             </section>
 

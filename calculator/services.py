@@ -35,15 +35,36 @@ VOUCHER_EXTRA_MAX = 50000
 # Tax
 TAX_HKD_RATE = 0.17
 
-# VAT for HKD
-vat_hkd = 0.02 # The total VAT is actually 3%. 1% is collected on behalf by Shopee
+HKD_PERCENT_COST = {
+    "Vat_HKD": {
+        "percent": 0.02,
+        "description": "VAT responsible by HKD, apart from what Shopee collects on behalf.",
+    },
+
+    "Marketing": {
+        "percent": 0.05,
+        "description": "Estimated Marketing cost the product.",
+    },
+
+    "Service_allowance" : {
+        "percent": 0.03,
+        "description": "Money to fix small problems smoothly./ That thoat",
+    },
+}
+
 
 def shopee_total_percent_fee():
     return sum(fee["percent"] for fee in SHOPEE_PERCENT_FEES.values())
 
+def hkd_total_percent_cost():
+    return sum(fee["percent"] for fee in HKD_PERCENT_COST.values())
+
 
 def shopee_total_fixed_fee():
     return sum(fee["fixed"] for fee in SHOPEE_FIXED_FEES.values())
+
+def hkd_total_fixed_cost(): # This one is for the future
+    return None
 
 
 def total_tax_hkd(net_profit_desired):
@@ -63,8 +84,8 @@ def shopee_selling_price(cost, net_profit_desired):
 
     base_amount = cost + net_profit_desired + tax
 
-    normal_percent_fee = shopee_total_percent_fee() + vat_hkd
-    normal_fixed_fee = shopee_total_fixed_fee()
+    normal_percent_fee = shopee_total_percent_fee() + hkd_total_percent_cost()
+    normal_fixed_fee = shopee_total_fixed_fee() # Add hkd_total_fixed_cost() in the future
 
     # Case 1:
     # Voucher Extra is still 4% because it has not reached 50,000
@@ -96,7 +117,31 @@ def calculate_selling_price(cost, desired_profit):
     tax = total_tax_hkd(desired_profit)
     voucher_extra = voucher_extra_fee(selling_price)
 
-    vat_redbean = shopee_selling_price(cost,desired_profit)*vat_hkd
+    hkd_fee_breakdown = []
+
+    hkd_fee_breakdown.append({
+        "name": "VAT HKD",
+        "description": "VAT HKD tự nộp, bên cạnh VAT 1% Shopee thu hộ",
+        "amount": selling_price * 0.02,
+        "rate": 0.02,
+        "rate_percent": 2
+    })
+    
+    hkd_fee_breakdown.append({
+        "name": "Marketing",
+        "description": "Chi phí Marketing ước tính cho mỗi sản phẩm",
+        "amount": selling_price * 0.05,
+        "rate": 0.05,
+        "rate_percent": 5,
+    })
+
+    hkd_fee_breakdown.append({
+        "name": "Service allowance",
+        "description": "Thất thoát",
+        "amount": selling_price * 0.03,
+        "rate": 0.03,
+        "rate_percent": 3
+    })
 
     fee_breakdown = []
 
@@ -143,20 +188,22 @@ def calculate_selling_price(cost, desired_profit):
     fee_breakdown.append({
         "name": "TNCN_Shopee",
         "description": "Thuế TNCN sàn thu",
-        "amount": selling_price * 0.035,
+        "amount": selling_price * 0.015,
         "rate": 0.015,
         "rate_percent": 1.5,
     })
 
     total_shopee_fee = sum(fee["amount"] for fee in fee_breakdown)
-    
+    total_hkd_cost = tax + sum(fee["amount"] for fee in hkd_fee_breakdown)
+
     return {
         "cost": cost,
         "desired_profit": desired_profit,
+        "total_hkd_cost": total_hkd_cost,
         "tax": tax,
-        "vat": vat_redbean,
         "voucher_extra": voucher_extra,
         "shopee_fee": total_shopee_fee,
         "selling_price": selling_price,
         "fee_breakdown": fee_breakdown,
+        "hkd_fee_breakdown": hkd_fee_breakdown,
     }
