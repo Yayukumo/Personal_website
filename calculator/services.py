@@ -10,7 +10,8 @@ SHOPEE_PERCENT_FEES = {
         "percent": 0.05,
         "description": "Phí thanh toán",
     },
-    "TNCN_Shopee": {
+    "TNCN_Shopee": {   
+        # IMPORTANT: The total is 3.5%, Shopee collects 1.5% on behalf. We are still responsible for the remaining 2%.
         "percent": 0.015,
         "description": "Thuế TNCN sàn thu",
     },
@@ -34,6 +35,8 @@ VOUCHER_EXTRA_MAX = 50000
 # Tax
 TAX_HKD_RATE = 0.17
 
+# VAT for HKD
+vat_hkd = 0.02 # The total VAT is actually 3%. 1% is collected on behalf by Shopee
 
 def shopee_total_percent_fee():
     return sum(fee["percent"] for fee in SHOPEE_PERCENT_FEES.values())
@@ -60,7 +63,7 @@ def shopee_selling_price(cost, net_profit_desired):
 
     base_amount = cost + net_profit_desired + tax
 
-    normal_percent_fee = shopee_total_percent_fee()
+    normal_percent_fee = shopee_total_percent_fee() + vat_hkd
     normal_fixed_fee = shopee_total_fixed_fee()
 
     # Case 1:
@@ -92,6 +95,8 @@ def calculate_selling_price(cost, desired_profit):
 
     tax = total_tax_hkd(desired_profit)
     voucher_extra = voucher_extra_fee(selling_price)
+
+    vat_redbean = shopee_selling_price(cost,desired_profit)*vat_hkd
 
     fee_breakdown = []
 
@@ -138,7 +143,7 @@ def calculate_selling_price(cost, desired_profit):
     fee_breakdown.append({
         "name": "TNCN_Shopee",
         "description": "Thuế TNCN sàn thu",
-        "amount": selling_price * 0.015,
+        "amount": selling_price * 0.035,
         "rate": 0.015,
         "rate_percent": 1.5,
     })
@@ -149,6 +154,7 @@ def calculate_selling_price(cost, desired_profit):
         "cost": cost,
         "desired_profit": desired_profit,
         "tax": tax,
+        "vat": vat_redbean,
         "voucher_extra": voucher_extra,
         "shopee_fee": total_shopee_fee,
         "selling_price": selling_price,
