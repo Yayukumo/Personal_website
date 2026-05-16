@@ -20,8 +20,8 @@
 
         <section class="dashboard-grid">
 
-            <!-- LEFT: FORM + INPUT CONFIRMATION -->
-            <section class="form-panel">
+            <!-- SECTION 01: FORM INPUT -->
+            <section class="form-panel section-01">
                 <div class="panel-header">
                     <p>01</p>
                     <h2>Shopee Calculator</h2>
@@ -54,32 +54,72 @@
                         required
                     >
 
+                    <label for="marketing_rate">Marketing (%)</label>
+                    <input
+                        type="number"
+                        id="marketing_rate"
+                        name="marketing_rate"
+                        value="{{ marketing_rate_percent|default:4 }}"
+                        min="0"
+                        max="20"
+                        step="0.5"
+                        inputmode="decimal"
+                        required
+                    >
+
+                    <label for="service_allowance_rate">Thất thoát / Service allowance (%)</label>
+                    <input
+                        type="number"
+                        id="service_allowance_rate"
+                        name="service_allowance_rate"
+                        value="{{ service_allowance_rate_percent|default:2 }}"
+                        min="0"
+                        max="20"
+                        step="0.5"
+                        inputmode="decimal"
+                        required
+                    >
+
                     <button type="submit">Tính giá bán</button>
                 </form>
-
-                <div class="input-confirm">
-                    <h3>Thông tin đầu vào</h3>
-
-                    {% if result %}
-                        <div class="mini-row">
-                            <span>Chi phí</span>
-                            <strong>{{ result.cost|floatformat:0|intcomma }}đ</strong>
-                        </div>
-
-                        <div class="mini-row">
-                            <span>Lợi nhuận mong muốn</span>
-                            <strong>{{ result.desired_profit|floatformat:0|intcomma }}đ</strong>
-                        </div>
-                    {% else %}
-                        <p class="empty-text">Thông tin đầu vào sẽ hiện ở đây sau khi tính.</p>
-                    {% endif %}
-                </div>
             </section>
 
-            <!-- MIDDLE: TAX HKD -->
-            <section class="result-panel">
+            <!-- SECTION 02: INPUT CONFIRMATION -->
+            <section class="result-panel section-02">
                 <div class="panel-header">
                     <p>02</p>
+                    <h2>Thông tin đầu vào</h2>
+                </div>
+
+                {% if result %}
+                    <div class="mini-row">
+                        <span>Chi phí</span>
+                        <strong>{{ result.cost|floatformat:0|intcomma }}đ</strong>
+                    </div>
+
+                    <div class="mini-row">
+                        <span>Lợi nhuận mong muốn</span>
+                        <strong>{{ result.desired_profit|floatformat:0|intcomma }}đ</strong>
+                    </div>
+
+                    <div class="mini-row">
+                        <span>Marketing</span>
+                        <strong>{{ marketing_rate_percent|floatformat:1 }}%</strong>
+                    </div>
+
+                    <div class="mini-row">
+                        <span>Thất thoát / Service allowance</span>
+                        <strong>{{ service_allowance_rate_percent|floatformat:1 }}%</strong>
+                    </div>
+                {% else %}
+                    <p class="empty-text">Thông tin đầu vào sẽ hiện ở đây sau khi tính.</p>
+                {% endif %}
+            </section>
+
+            <!-- SECTION 03: HKD COST -->
+            <section class="result-panel section-03">
+                <div class="panel-header">
+                    <p>03</p>
                     <h2>Chi phí HKD Red Bean</h2>
                 </div>
 
@@ -92,6 +132,7 @@
                         <span>Thuế TNCN</span>
                         <strong>{{ result.tax|floatformat:0|intcomma }}đ</strong>
                     </div>
+
                     <div class="fee-breakdown compact">
                         {% for fee in result.hkd_fee_breakdown %}
                             <div class="fee-row">
@@ -114,10 +155,10 @@
                 {% endif %}
             </section>
 
-            <!-- RIGHT: SHOPEE FEE -->
-            <section class="result-panel">
+            <!-- SECTION 04: SHOPEE FEE -->
+            <section class="result-panel section-04">
                 <div class="panel-header">
-                    <p>03</p>
+                    <p>04</p>
                     <h2>Phí Shopee</h2>
                 </div>
 
@@ -148,17 +189,20 @@
                 {% endif %}
             </section>
 
-        </section>
+            <!-- SECTION 05: FINAL PRICE -->
+            <section class="final-price-bar section-05">
+                <div>
+                    <p>05</p>
+                    <span>Giá bán đề xuất</span>
+                </div>
 
-        <!-- BOTTOM: FINAL PRICE -->
-        <section class="final-price-bar">
-            <span>04 · Giá bán đề xuất</span>
+                {% if result %}
+                    <strong>{{ result.selling_price|floatformat:0|intcomma }}đ</strong>
+                {% else %}
+                    <strong>—</strong>
+                {% endif %}
+            </section>
 
-            {% if result %}
-                <strong>{{ result.selling_price|floatformat:0|intcomma }}đ</strong>
-            {% else %}
-                <strong>—</strong>
-            {% endif %}
         </section>
 
     </main>

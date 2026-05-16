@@ -1,3 +1,4 @@
+
 * {
     box-sizing: border-box;
 }
@@ -16,32 +17,32 @@ body {
     overflow: hidden;
 }
 
-/* Full screen app layout */
+/* APP */
 
 .app-screen {
     height: 100vh;
-    padding: 22px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
     background:
-        radial-gradient(circle at top right, rgba(153, 173, 122, 0.36), transparent 32%),
+        radial-gradient(circle at top right, rgba(153, 173, 122, 0.32), transparent 32%),
         linear-gradient(to bottom, #fff8ec, #dcccac);
 }
 
-/* Top navigation */
+/* TOP BAR */
 
 .topbar {
-    height: 44px;
+    height: 36px;
+    min-height: 36px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0;
 }
 
 .brand {
     color: #546b41;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 900;
     letter-spacing: 1px;
 }
@@ -57,82 +58,116 @@ body {
     opacity: 1;
 }
 
-/* Main dashboard */
+/* MAIN GRID
+   Layout:
+   | 1 | 3 | 4 |
+   | 2 |    5 |
+*/
 
 .dashboard-grid {
     flex: 1;
     min-height: 0;
     display: grid;
-    grid-template-columns: 330px 1fr 1.35fr;
-    gap: 18px;
+    grid-template-columns: 300px minmax(300px, 1fr) minmax(340px, 1.2fr);
+    grid-template-rows: minmax(0, 1fr) 150px;
+    gap: 12px;
 }
 
-/* Panels */
+/* SECTION PLACEMENT */
+
+.section-01 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.section-02 {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.section-03 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.section-04 {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.section-05 {
+    grid-column: 2 / 4;
+    grid-row: 2;
+}
+
+/* PANELS */
 
 .form-panel,
-.result-panel {
+.result-panel,
+.final-price-bar {
+    min-width: 0;
     min-height: 0;
-    border-radius: 20px;
-    padding: 24px;
-    box-shadow: 0 24px 80px rgba(84, 107, 65, 0.16);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 14px 44px rgba(84, 107, 65, 0.13);
 }
-
-/* Form panel should feel different */
 
 .form-panel {
     background: rgba(153, 173, 122, 0.22);
     border: 1px solid rgba(84, 107, 65, 0.26);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
-/* Tax and Shopee fee panels look the same */
 
 .result-panel {
     background: rgba(255, 248, 236, 0.88);
     border: 1px solid rgba(84, 107, 65, 0.16);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* Panel titles */
+/* PANEL HEADER */
 
 .panel-header {
-    margin-bottom: 22px;
+    margin-bottom: 12px;
 }
 
 .panel-header p {
-    margin: 0 0 6px;
+    margin: 0 0 5px;
     color: #546b41;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 900;
     letter-spacing: 2px;
 }
 
 .panel-header h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 1.15;
     color: #26331f;
 }
 
-/* Form */
+/* FORM */
 
 .calc-form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .calc-form label {
     color: #546b41;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .calc-form input {
     width: 100%;
-    padding: 15px;
+    padding: 11px 12px;
     border-radius: 10px;
     border: 1px solid rgba(84, 107, 65, 0.22);
     background: #fff8ec;
     color: #26331f;
-    font-size: 18px;
+    font-size: 15px;
     outline: none;
 }
 
@@ -146,13 +181,13 @@ body {
 }
 
 .calc-form button {
-    margin-top: 8px;
-    padding: 15px;
+    margin-top: 5px;
+    padding: 12px;
     border: none;
     border-radius: 10px;
     background: #546b41;
     color: #fff8ec;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 900;
     cursor: pointer;
 }
@@ -161,35 +196,25 @@ body {
     background: #445835;
 }
 
-/* Input confirmation */
-
-.input-confirm {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(84, 107, 65, 0.18);
-}
-
-.input-confirm h3 {
-    margin: 0 0 14px;
-    font-size: 18px;
-    color: #26331f;
-}
-
-/* Shared rows */
+/* ROWS */
 
 .mini-row,
 .fee-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 18px;
-    padding: 12px 0;
+    gap: 10px;
+    padding: 8px 0;
     border-bottom: 1px solid rgba(84, 107, 65, 0.14);
 }
 
 .mini-row span,
 .fee-row p {
     color: #6d725d;
+}
+
+.mini-row span {
+    font-size: 13px;
 }
 
 .mini-row strong,
@@ -199,79 +224,109 @@ body {
     white-space: nowrap;
 }
 
-/* Tax / fee result */
+/* RESULT NUMBERS */
 
 .big-number {
-    margin-bottom: 22px;
+    margin-bottom: 10px;
     color: #546b41;
-    font-size: clamp(34px, 4vw, 54px);
+    font-size: clamp(24px, 2.7vw, 36px);
     font-weight: 900;
-    letter-spacing: -1.5px;
+    letter-spacing: -0.8px;
+    word-break: break-word;
 }
 
 .empty-text {
     margin: 0;
     color: #6d725d;
     line-height: 1.5;
+    font-size: 14px;
 }
 
-/* Shopee fee breakdown */
+/* FEE BREAKDOWN */
 
 .fee-breakdown.compact {
     display: grid;
-    gap: 2px;
+    gap: 1px;
 }
 
 .fee-row strong {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.25;
     color: #26331f;
 }
 
 .fee-row p {
-    margin: 4px 0 0;
+    margin: 3px 0 0;
     font-size: 12px;
 }
 
 .fee-row span {
-    font-size: 14px;
+    font-size: 13px;
 }
 
-/* Final selling price */
+/* SECTION 05 FINAL PRICE */
 
 .final-price-bar {
-    min-height: 88px;
-    padding: 18px 26px;
-    border-radius: 20px;
     background:
         linear-gradient(135deg, rgba(153, 173, 122, 0.38), rgba(255, 248, 236, 0.98));
     border: 1px solid rgba(84, 107, 65, 0.28);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 24px 80px rgba(84, 107, 65, 0.16);
+    gap: 18px;
+    overflow: hidden;
+}
+
+.final-price-bar div {
+    min-width: 0;
+}
+
+.final-price-bar p {
+    margin: 0 0 4px;
+    color: #546b41;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .final-price-bar span {
     color: #546b41;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
 }
 
 .final-price-bar strong {
     color: #546b41;
-    font-size: clamp(38px, 5vw, 68px);
-    font-weight: 950;
-    letter-spacing: -2px;
+    font-size: clamp(34px, 4.5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -1.2px;
+    white-space: nowrap;
 }
 
-/* Smaller screens */
+/* SCROLLBARS */
 
-@media (max-width: 1000px) {
+.form-panel::-webkit-scrollbar,
+.result-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.form-panel::-webkit-scrollbar-thumb,
+.result-panel::-webkit-scrollbar-thumb {
+    background: rgba(84, 107, 65, 0.28);
+    border-radius: 999px;
+}
+
+.form-panel::-webkit-scrollbar-track,
+.result-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* MEDIUM SCREENS */
+
+@media (max-width: 1150px) {
     body {
-        overflow: auto;
+        overflow-y: auto;
     }
 
     .app-screen {
@@ -280,33 +335,108 @@ body {
     }
 
     .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .section-01,
+    .section-02,
+    .section-03,
+    .section-04,
+    .section-05 {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .section-05 {
+        grid-column: 1 / -1;
+    }
+
+    .form-panel,
+    .result-panel {
+        overflow: visible;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 760px) {
+    .app-screen {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .dashboard-grid {
         grid-template-columns: 1fr;
+    }
+
+    .section-05 {
+        grid-column: auto;
     }
 
     .final-price-bar {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+    }
+
+    .final-price-bar strong {
+        white-space: normal;
+        word-break: break-word;
     }
 }
 
+/* SMALL MOBILE */
+
 @media (max-width: 560px) {
-    .app-screen {
-        padding: 16px;
+    .topbar {
+        height: auto;
+        min-height: 34px;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .brand {
+        font-size: 20px;
+        line-height: 1.15;
+    }
+
+    .nav-link {
+        font-size: 13px;
     }
 
     .form-panel,
-    .result-panel {
-        padding: 20px;
+    .result-panel,
+    .final-price-bar {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .panel-header h2 {
+        font-size: 19px;
+    }
+
+    .calc-form input {
+        padding: 12px;
+        font-size: 16px;
     }
 
     .mini-row,
     .fee-row {
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
+    }
+
+    .mini-row strong,
+    .fee-row span {
+        white-space: normal;
+        text-align: left;
+    }
+
+    .big-number {
+        font-size: 30px;
     }
 
     .final-price-bar strong {
-        font-size: 42px;
+        font-size: 34px;
     }
 }
