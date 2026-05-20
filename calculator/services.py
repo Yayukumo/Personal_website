@@ -3,11 +3,11 @@
 # Normal Shopee fees
 SHOPEE_PERCENT_FEES = {
     "Platform": {
-        "percent": 0.135,
+        "percent": 0.165,
         "description": "Phí sàn cố định",
     },
     "Payment": {
-        "percent": 0.05,
+        "percent": 0.06,
         "description": "Phí thanh toán",
     },
     "TNCN_Shopee": {
@@ -20,7 +20,7 @@ SHOPEE_PERCENT_FEES = {
 
 SHOPEE_FIXED_FEES = {
     "Piship": {
-        "fixed": 1700,
+        "fixed": 2700,
         "description": "Phí chương trình Piship",
     },
     "Ha_tang": {
@@ -30,7 +30,7 @@ SHOPEE_FIXED_FEES = {
 }
 
 # Special capped fee
-VOUCHER_EXTRA_PERCENT = 0.04
+VOUCHER_EXTRA_PERCENT = 0.055
 VOUCHER_EXTRA_MAX = 50000
 
 # Tax TNCN. This is the tax that HKD pays based on the profit,
