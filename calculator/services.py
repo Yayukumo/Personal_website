@@ -10,9 +10,10 @@ SHOPEE_PERCENT_FEES = {
         "percent": 0.06,
         "description": "Phí thanh toán",
     },
-    "TNCN_Shopee": {
-        # IMPORTANT: The total is 3.5%, Shopee collects 1.5% on behalf.
-        # We are still responsible for the remaining 2%.
+    "VAT_TNCN_Shopee": {
+        # IMPORTANT: The total VAT is 3%, Shopee collects 1% on behalf.
+        # The TNCN is 17%, Shopee collects 0.5% on behalf.
+        # We are still responsible for the remaining 2% of VAT and the rest of TNCN.
         "percent": 0.015,
         "description": "Thuế TNCN sàn thu",
     },
@@ -156,6 +157,7 @@ def build_hkd_percent_cost(marketing_rate=0.04, service_allowance_rate=0.02):
     return hkd_percent_cost
 
 
+TNCN_SHOPEE_WITHHELD_RATE = 0.005  # The 0.5% of revenue Shopee collects as TNCN on behalf.
 def shopee_selling_price(
     cost,
     net_profit_desired,
@@ -171,7 +173,11 @@ def shopee_selling_price(
         service_allowance_rate=service_allowance_rate,
     )
 
-    normal_percent_fee = shopee_total_percent_fee() + hkd_total_percent_cost(hkd_percent_cost)
+    normal_percent_fee = (
+        shopee_total_percent_fee()
+        + hkd_total_percent_cost(hkd_percent_cost)
+        - TNCN_SHOPEE_WITHHELD_RATE  # Shopee pays 0.5%*R for us, so we subtract it from what R must cover
+    )
     normal_fixed_fee = shopee_total_fixed_fee()  # Add hkd_total_fixed_cost() in the future
 
     # Case 1:
@@ -211,7 +217,8 @@ def calculate_selling_price(
         service_allowance_rate=service_allowance_rate,
     )
 
-    tax = total_tax_hkd(desired_profit)
+    tax = total_tax_hkd(desired_profit) - selling_price*TNCN_SHOPEE_WITHHELD_RATE # TNCN tax is supposed to be 17% of the profit. However, since Shopee collects 1.5% on behalf (0.5% is for personal income TNCN tax), we only need to account for the remaining 2%, which is equivalent to 0.005 of the selling price.
+    
     voucher_extra = voucher_extra_fee(selling_price)
 
     hkd_percent_cost = build_hkd_percent_cost(
